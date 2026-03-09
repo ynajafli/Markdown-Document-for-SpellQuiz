@@ -1,7 +1,7 @@
-# SpellQuiz — User-Facing Feature Inventory
+# SpellQuiz — Product Features for Email Marketing
 
-> Complete inventory of every user-facing feature, organized by user role.
-> Intended for use in onboarding design, lifecycle email planning, and product documentation.
+> This document defines the user-facing product capabilities of SpellQuiz.
+> It is intended for use in designing onboarding and lifecycle email campaigns for Teachers, Parents, Students, and Self-learners.
 > Last updated: March 2026
 
 ---
@@ -23,422 +23,296 @@ The core learning outcomes the platform delivers to its users:
 
 Features are organized into two types of sections:
 
-**Role-Specific Features (§1–5)**
-1. **Universal** — available to everyone, including unauthenticated guests
-2. **Teacher** — classroom management, content creation, assignment, and student reporting
-3. **Parent** — child monitoring, assignment, and family subscription management
-4. **Self-learner** — independent learning, progress tracking, and personal billing
-5. **Student** — assigned work, self-directed learning, and progress tracking
+**Role-Specific Features (§1–4)**
+Each role section lists only the features that are unique to that role — things a teacher, parent, student, or self-learner can do that other roles cannot.
 
-**Shared Learning Features (§6)**
-Learning features available to all authenticated roles (Teacher, Parent, Self-learner, Student) are listed once in §6 to avoid repetition across role sections. These include all spelling modes, reading, vocabulary, courses, Spelling Bee, championships, and more.
-
-Sections 2–5 inherit all features from §1, and all authenticated roles in §2–5 also have access to everything in §6.
+**Shared Learning Features (§5)**
+All learning modes (spelling, vocabulary, reading, courses, Spelling Bee, etc.) are available to every authenticated user. These are listed once in §5 to avoid repetition.
 
 ---
 
 ## Important spelling feature distinctions
 
-The product has six separate spelling-related features that are often confused:
+The product has six separate spelling features. They are distinct experiences, not the same feature under different names:
 
-| Feature | Route | What it is |
-|---------|-------|-----------|
-| **Spelling Test** | `/spelling-test/` | Grade and topic browser — select what to test, then launch the quiz engine |
-| **Spelling Quiz** | `/spelling-quiz/` | The interactive quiz engine — type answers word by word with audio |
-| **Spelling Practice** | `/spelling-practice/` | A separate self-paced practice system with its own road progression and data model |
-| **Spelling Practice Quiz** | `/spelling-practice-quiz/` | The quiz player for the practice system (express and step-by-step modes) |
-| **Spelling Training** | `/spelling-training/` | Teacher-created custom word lists with audio, assigned to students |
-| **Spelling Training Quiz** | `/spelling-training-quiz/` | The quiz player for assigned training lists |
+| Feature | What it is |
+|---------|-----------|
+| **Spelling Test** | A grade and topic browser — the user picks a K–12 grade and spelling topic, then launches the quiz |
+| **Spelling Quiz** | The interactive quiz engine — the user types words one at a time while listening to audio, and receives a score |
+| **Spelling Practice** | A self-paced practice system with a visual "road" progression tracking mastered words in milestones |
+| **Spelling Practice Quiz** | The quiz player for the practice system, with express (fast) and step-by-step (audio-guided) modes |
+| **Spelling Training** | Teacher-created custom word lists with audio, assigned to students to work through at their own pace |
+| **Spelling Training Quiz** | The quiz player for assigned training lists |
 
-These share no data models and serve distinct purposes.
-
----
-
-## 1. Universal Features
-*Available to all users, including guests (unauthenticated).*
-
-### Marketing and Discovery
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Home page** | Browse product overview, read feature highlights and testimonials, navigate to register or log in | `/` |
-| **Features page** | Read a detailed breakdown of product capabilities | `/features` |
-| **Pricing page** | Compare subscription plans by role (Teacher, Parent, Self-learner); see monthly vs. yearly costs and free trial details | `/pricing` |
-| **Testimonials** | Read reviews from other users | `/testimonials` |
-| **FAQ** | Browse frequently asked questions and answers | `/faq` |
-| **Contact form** | Submit a support request or feedback message | `/contacts` |
-| **Blog** | Read spelling tips, educational articles, and graded content | `/blog`, `/blog/[slug]` |
-| **Video library** | Browse and watch educational videos organized by category | `/videos` |
-| **Idioms** | Browse the idiom library index | `/idioms` |
-| **Idiom detail** | Read the definition, usage, and examples for a specific idiom | `/idiom/[slug]` |
-| **Terms of service** | Read the terms of use | `/terms` |
-| **Privacy policy** | Read the privacy policy | `/policy` |
-
-### Authentication
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Register** | Choose role (self-learner, parent, or teacher), complete age gate if self-learner (>16 required), create account | `/auth/register` |
-| **Adult login** | Sign in with email and password | `/auth/login` |
-| **Student login** | Enter teacher's email, pick name from class roster, enter password | `/auth/student` |
-| **Forgot password** | Request a password reset link by email | `/auth/forgot` |
-| **Email verification** | Verify email address after registration | `/verification` |
-| **SSO — Google** | Sign in or register with a Google account | `/auth/google` |
-| **SSO — Facebook** | Sign in or register with a Facebook account | `/auth/fb` |
-| **SSO — Clever** | Sign in via Clever (for school-connected teachers and students) | `/auth/clever` |
-| **SSO — ClassLink** | Sign in via ClassLink (for school-connected teachers and students) | `/classlink` |
-
-### Public Learning Content
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Word bank (browse)** | Browse K–12 graded word lists with audio pronunciation; accessible without login | `/words` |
-| **Spelling Bee word lists (browse)** | Browse curated Spelling Bee competition word lists by grade | `/spelling-bee-words` |
-| **Reading comprehension — Grade 1** | Read a Grade 1 passage and answer comprehension questions; guests are limited to Grade 1 only | `/reading-comprehension` |
-| **Fun quizzes (browse)** | View the fun quiz catalog by category without logging in | `/quizzes` |
-| **Course catalog (browse)** | Browse available courses without enrolling | `/courses` |
-| **Spelling Bee Online (observe/guest)** | View the active player lobby; enter a name and join a game without a persistent account — no stats saved | `/spelling-bee-online` |
+These are different learning experiences with different progression systems and different data.
 
 ---
 
-## 2. Teacher Features
-*Teachers self-register. They create classes, manage students, produce content, and assign work.*
+## 1. Teacher Features
+*Teachers create and manage classrooms, assign work to students, and monitor student progress.*
 
-### Dashboard
+### Classroom and Student Management
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Teacher dashboard** | See summary stats (students, classes, quizzes assigned, content created); quick-launch links to all features; activity block for own learning | `/school/dashboard` |
+| Feature | What the teacher can do |
+|---------|------------------------|
+| **Create a class** | Set up a named class and get a shareable link students can use to join |
+| **Add students** | Create individual student accounts with a name and password and assign them to a class |
+| **Invite parents** | Send a parent an email invitation to link them to a specific student's account |
+| **View and manage student list** | Search and filter all students by name or class |
 
-### Classroom Management
+### Assigning Work
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Create a class** | Create a named class with language and description; get a shareable student enrollment link | `/school/classes` |
-| **Edit a class** | Rename a class, change its language or description | `/school/classes` |
-| **Delete a class** | Remove a class | `/school/classes` |
-| **Create student accounts** | Add individual students with name, password, and language; assign to a class | `/school/classes` |
-| **Edit student accounts** | Update a student's name, password, language, or class assignment | `/school/classes` |
-| **Delete students** | Remove a student account (cascades through quiz and training data) | `/school/classes`, `/school/students` |
-| **Bulk import students (CSV)** | Upload a CSV file to create multiple students at once | `/school/students` |
-| **Export students (CSV)** | Download a CSV of all students | `/school/students` |
-| **Manage students list** | Search, filter, and sort all students by name, class, or subscription status | `/school/students` |
-| **Invite parents** | Send a parent invitation email to link a parent to a specific student | `/school/students` |
-| **Manage parent requests** | Approve or decline incoming parent connection requests | `/school/dashboard` |
-| **Clever roster sync** | Pull class rosters from Clever; auto-create student accounts from school data | `/school/dashboard` |
-| **ClassLink roster sync** | Pull class rosters from ClassLink | `/school/dashboard` |
+| Feature | What the teacher can do |
+|---------|------------------------|
+| **Assign spelling exams** | Select spelling words by grade and topic, choose students or an entire class, and set a due date, time limit, and number of allowed attempts |
+| **Assign spelling training lists** | Send a custom audio word list to individual students or a whole class |
+| **View assignments dashboard** | See all created assignments with their status (assigned, in-progress, completed), student name, score, and date |
 
 ### Content Creation
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Spelling content editor** | Create spelling words with audio (record microphone or upload file), assign to grade and topic, deploy instantly to the spelling quiz | `/school/editor` |
-| **Spelling content library** | Browse, search, filter, and manage all created spelling content; filter by grade, topic, language, and content owner | `/school/content` |
-| **Spelling sentences editor** | Create sentence-level spelling content with recorded audio for use in spelling practice mode | `/school/seditor` |
-| **Spelling sentences library** | Browse and manage created spelling sentence lists | `/school/sentences` |
-| **Spelling training list creator** | Build custom word lists with audio in 10 languages (US, UK, CA, AU English, French, German, Italian, Spanish, Portuguese, Other) and publish them for students | `/spelling-training/editor`, `/spelling-training/lists` |
-| **Spelling training word library** | Browse, search, and listen to all available training words; filter by language | `/spelling-training/words` |
-| **Course creator** | Create a course with title, description, and thumbnail; publish or save as draft | `/lessons/courses/editor`, `/lessons/courses/list` |
-| **Lesson builder** | Add sequential lessons to a course; build exercises (audio, image choice, missing word, word ordering, sentence correction, matching, YouTube task, reading) | `/lessons/lessons/editor` |
-| **Worksheet creator** | Build printable and interactive worksheets with exercises; publish or keep as draft (requires an author profile) | `/worksheets/editor`, `/worksheets/list` |
+| Feature | What the teacher can do |
+|---------|------------------------|
+| **Spelling training list creator** | Build custom word lists with audio recordings in 10 languages and publish them for students to practice |
+| **Course creator** | Create a structured learning course with a title, description, and lessons; publish or save as a draft |
+| **Lesson builder** | Add sequential lessons to a course using multiple exercise types: audio listening, image choice, missing word, word ordering, sentence correction, matching, and YouTube tasks |
+| **Worksheet creator** | Build interactive worksheets with exercises and publish them for students |
 
-### Assignment
+### Student Progress Reports
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Assign spelling exams** | Select content by grade, topic, and language; choose individual students or a whole class; set a due date, time limit, and maximum attempt count | `/school/assign` |
-| **Assign spelling training lists** | Assign a custom training list to individual students or a class | `/spelling-training/assignments` |
-| **Assignments dashboard** | See all created exams and work assignments with status (assigned / in-progress / completed), score, student name, and creation date | `/school/assignments` |
-| **Delete an assignment** | Remove an exam assignment before or after completion | `/school/assignments` |
-
-### Reporting (Teacher's Students)
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Performance report** | View all students' quiz performance filtered by date range, grade, topic, quiz type, and class; sortable table with score, words mastered, words missed, and time spent | `/reports/performance` |
-| **Spelling report** | See per-grade spelling performance across all managed students | `/reports/spelling` |
-| **Quiz log** | Browse the full quiz attempt history for any student with score and timestamp | `/reports/quiz-log` |
-| **Quiz statistics** | View aggregated quiz stats (average score, attempt count, type breakdowns) | `/reports/quiz-stats` |
-| **Spelling words report** | See which words each student has mastered or missed | `/reports/spelling-words` |
-| **Practice words report** | View word-level performance from spelling practice sessions | `/reports/practice-words` |
-| **SBO words report** | View words mastered by students in Spelling Bee Online mode | `/reports/sbo-words` |
-| **Words statistics** | See vocabulary acquisition over time per student | `/reports/words-statistics` |
-| **Readings report** | View reading comprehension performance per student | `/reports/readings` |
-| **Training assignments report** | See completion progress, score, and date for each training list assigned to students | `/spelling-training/assignments` |
-| **Lesson assignments report** | View student progress through course lessons | `/lessons/lessons/assignments` |
-
-### Billing and Account
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Subscribe** | Purchase a monthly or yearly Teacher plan; enter a coupon code | `/payment/plan`, `/payment/subscribe` |
-| **Subscription management** | View current plan, see and manage licensed students, add or remove students from the subscription | `/profile` (subscription tab) |
-| **Subscription history** | View all past and current subscriptions | `/payment/history` |
-| **Subscription detail** | View full payment history, license breakdown, and status for any subscription | `/payment/sub-detail` |
-| **Cancel subscription** | Cancel recurring PayPal billing | `/profile` (subscription tab) |
-| **User profile** | Update name, email, avatar, country, and timezone | `/profile` |
-| **View own certificates** | See spelling achievement certificates earned personally | `/certificates` |
+| Feature | What the teacher can do |
+|---------|------------------------|
+| **Performance report** | View all students' quiz results filtered by date range, grade, topic, and quiz type; see score, words mastered, words missed, and time spent per student |
+| **Spelling report** | See per-grade spelling performance across all managed students |
+| **Quiz history** | Browse the full quiz attempt history for any student, including score and date |
+| **Mastered words report** | See exactly which spelling words each student has mastered and which they continue to miss |
+| **Practice words report** | View word-level performance from each student's spelling practice sessions |
+| **Spelling Bee words report** | View words each student has mastered through Spelling Bee Online |
+| **Vocabulary growth report** | Track how each student's vocabulary has grown over time |
+| **Reading comprehension report** | View reading comprehension scores and completion rates per student |
+| **Training assignment results** | See each student's completion rate, score, and completion date for every training list assigned |
+| **Lesson progress report** | View how far each student has progressed through course lessons |
 
 ---
 
-## 3. Parent Features
-*Parents self-register (or are invited). They monitor children, assign work, and manage a family subscription.*
+## 2. Parent Features
+*Parents monitor their children's learning, assign extra work, and view progress reports.*
 
-### Dashboard
+### Child Monitoring
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Parent dashboard** | See an overview of all linked students, recent quiz activity per student, and quick-launch links to own learning | `/parent/dashboard` |
+| Feature | What the parent can do |
+|---------|------------------------|
+| **View child activity** | See recent quiz attempts and practice history for each linked child from the parent dashboard |
+| **Link a child to a teacher's class** | Enroll a child in a teacher's class using an invitation link |
 
-### Student Management
+### Assigning Work
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Create student accounts** | Add a child as a student with name, password, and language | `/school/classes` |
-| **Edit student accounts** | Update a child's name, password, or class assignment | `/school/classes` |
-| **Delete students** | Remove a student account | `/school/classes`, `/school/students` |
-| **Link to a teacher's class** | Enroll a child in a teacher's class via invitation link or email code | `/school/classes` |
-| **View student activity** | See recent quiz attempts and practice history for each linked child | `/parent/dashboard` |
+| Feature | What the parent can do |
+|---------|------------------------|
+| **Assign spelling exams** | Create and assign a timed spelling exam to a child, with a set number of allowed attempts |
+| **Assign spelling training lists** | Send a custom audio word list to a child to practice |
+| **View assignments dashboard** | See all assigned work with status, score, and progress for each child |
 
-### Assignment
+### Child Progress Reports
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Assign spelling exams** | Create and assign a timed spelling exam to a child (same flow as teacher) | `/school/assign` |
-| **Assign spelling training lists** | Assign a training word list to a child | `/spelling-training/assignments` |
-| **Assignments dashboard** | See all created assignments with status, score, and progress per child | `/school/assignments` |
-
-### Reporting (Parent's Children)
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Performance report** | View a child's quiz performance filtered by date range, grade, topic, and quiz type | `/reports/performance` |
-| **Spelling report** | See per-grade spelling performance for each child | `/reports/spelling` |
-| **Quiz log** | Browse a child's full quiz attempt history | `/reports/quiz-log` |
-| **Quiz statistics** | View quiz stats for a child | `/reports/quiz-stats` |
-| **Spelling words report** | See mastered and missed words per child | `/reports/spelling-words` |
-| **Practice words report** | View word-level practice performance for a child | `/reports/practice-words` |
-| **SBO words report** | View SBO words mastered by each child | `/reports/sbo-words` |
-| **Words statistics** | See vocabulary growth over time per child | `/reports/words-statistics` |
-| **Readings report** | View reading comprehension results per child | `/reports/readings` |
-| **Training assignments report** | See completion and score for each training list assigned to children | `/spelling-training/assignments` |
-| **View children's certificates** | View certificates earned by each linked child | `/certificates` |
-
-### Billing and Account
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Subscribe** | Purchase a monthly or yearly Parent plan | `/payment/plan`, `/payment/subscribe` |
-| **Subscription management** | View current plan, manage licensed students | `/profile` (subscription tab) |
-| **Subscription history** | View all past and current subscriptions | `/payment/history` |
-| **Subscription detail** | View full payment and license history | `/payment/sub-detail` |
-| **Cancel subscription** | Cancel recurring billing | `/profile` (subscription tab) |
-| **User profile** | Update name, email, avatar, country, and timezone | `/profile` |
-| **View own certificates** | See own spelling achievement certificates | `/certificates` |
+| Feature | What the parent can do |
+|---------|------------------------|
+| **Performance report** | View a child's quiz results by date range, grade, and topic |
+| **Spelling report** | See per-grade spelling performance for each child |
+| **Quiz history** | Browse a child's complete quiz attempt history |
+| **Mastered words report** | See which spelling words each child has mastered or missed |
+| **Practice words report** | View word-level practice performance per child |
+| **Spelling Bee words report** | View words mastered by each child in Spelling Bee Online |
+| **Vocabulary growth report** | Track vocabulary progress over time per child |
+| **Reading comprehension report** | View reading scores and completion rates per child |
+| **Training assignment results** | See each child's progress and score on assigned training lists |
+| **View children's certificates** | See spelling achievement certificates earned by each linked child |
 
 ---
 
-## 4. Self-Learner Features
-*Self-learners are adults (age >16) who register independently. A free trial is created automatically at signup. They are never assigned work by another user.*
+## 3. Self-Learner Features
+*Self-learners are adults who register and learn independently. A free trial starts automatically at signup.*
 
-### Dashboard
+### Personal Progress Tracking
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Self-learner dashboard** | See personal activity summary and quick-launch buttons to all learning modes | `/student/dashboard` |
-
-### Progress Tracking
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **My practice view** | See all personal quiz attempts with score, progress percentage, and status | `/student/practice` |
-| **Quiz log** | Browse complete personal quiz attempt history with scores and timestamps | `/reports/quiz-log` |
-| **Quiz statistics** | View aggregated personal quiz stats | `/reports/quiz-stats` |
-| **Spelling report** | See personal per-grade spelling performance | `/reports/spelling` |
-| **Spelling words report** | View which words have been personally mastered vs. missed | `/reports/spelling-words` |
-| **Practice words report** | View word-level performance from practice sessions | `/reports/practice-words` |
-| **SBO words report** | View words mastered in Spelling Bee Online mode | `/reports/sbo-words` |
-| **Words statistics** | See vocabulary acquisition over time | `/reports/words-statistics` |
-| **Readings report** | View reading comprehension performance | `/reports/readings` |
-| **Championship leaderboards** | See personal ranking across all 5 leaderboards: Spelling, Vocabulary, SBO, Adaptive, Practice | `/championship` |
-| **Certificates** | Earn and view spelling achievement certificates | `/certificates`, `/certificate` |
-
-### Billing and Account
-
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Free trial** | Automatically created at registration; provides time-limited full access to premium features | Auto-created |
-| **Subscribe** | Purchase a monthly or yearly Self-learner plan after the trial expires | `/payment/plan`, `/payment/subscribe` |
-| **Subscription management** | View current plan and status | `/profile` (subscription tab) |
-| **Subscription history** | View all past subscriptions | `/payment/history` |
-| **Cancel subscription** | Cancel recurring billing | `/profile` (subscription tab) |
-| **User profile** | Update name, email, avatar, country, and timezone | `/profile` |
+| Feature | What the self-learner can do |
+|---------|------------------------------|
+| **My practice view** | See all personal quiz attempts with score, progress percentage, and completion status |
+| **Quiz history** | Browse complete personal quiz attempt history with scores and dates |
+| **Spelling report** | See personal per-grade spelling performance |
+| **Mastered words report** | View exactly which words have been personally mastered or missed |
+| **Practice words report** | See word-level performance from personal practice sessions |
+| **Spelling Bee words report** | View words mastered in Spelling Bee Online mode |
+| **Vocabulary growth report** | See vocabulary acquisition progress over time |
+| **Reading comprehension report** | View reading comprehension scores and completion history |
+| **Championship standings** | See personal ranking across all five leaderboards: Spelling, Vocabulary, Spelling Bee Online, Adaptive, and Practice |
+| **Certificates** | Earn and view spelling achievement certificates |
 
 ---
 
-## 5. Student Features
-*Students are created by a teacher or parent — they never self-register. They complete assigned work and can also use self-directed learning modes.*
+## 4. Student Features
+*Students are created by a teacher or parent. They complete assigned work and can also explore the platform independently.*
 
-### Assigned Work
+### Completing Assigned Work
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Student dashboard** | See activity shortcuts for all learning modes and any pending assigned work | `/student/dashboard` |
-| **Complete spelling exams** | Take teacher- or parent-assigned spelling exams; subject to time limits, attempt count limits, and due dates | `/spelling-quiz` |
-| **Complete spelling training assignments** | Work through assigned word lists with audio; track progress percentage per list | `/spelling-training`, `/spelling-training-quiz` |
-| **My assignments view** | See all assigned exams and practice work with status (assigned / in-progress / completed), score, and progress | `/student/practice` |
+| Feature | What the student can do |
+|---------|------------------------|
+| **Take spelling exams** | Complete teacher- or parent-assigned spelling exams within any set time limit and attempt count |
+| **Complete training assignments** | Work through assigned audio word lists and track progress percentage per list |
+| **My assignments view** | See all assigned exams and work with their status, score, and progress in one place |
 
-### Progress Tracking
+### Personal Progress Tracking
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **My practice view** | See all personal quiz attempts (two tabs: Practices and Exams) | `/student/practice` |
-| **Quiz log** | Browse full personal quiz attempt history | `/reports/quiz-log` |
-| **Quiz statistics** | View aggregated personal quiz stats | `/reports/quiz-stats` |
-| **Spelling report** | See per-grade spelling performance | `/reports/spelling` |
-| **Spelling words report** | View mastered vs. missed words | `/reports/spelling-words` |
-| **Practice words report** | View word-level practice performance | `/reports/practice-words` |
-| **SBO words report** | View words mastered in Spelling Bee Online | `/reports/sbo-words` |
-| **Words statistics** | See vocabulary progress over time | `/reports/words-statistics` |
-| **Readings report** | View reading comprehension results | `/reports/readings` |
-| **Championship leaderboards** | See personal standing across 5 leaderboards | `/championship` |
-| **Certificates** | Earn and view spelling achievement certificates | `/certificates`, `/certificate` |
+| Feature | What the student can do |
+|---------|------------------------|
+| **My practice view** | See all personal quiz attempts across both self-directed practice and assigned exams |
+| **Quiz history** | Browse complete personal quiz attempt history |
+| **Spelling report** | See per-grade spelling performance |
+| **Mastered words report** | View which words have been mastered or missed |
+| **Practice words report** | See word-level practice performance |
+| **Spelling Bee words report** | View words mastered in Spelling Bee Online |
+| **Vocabulary growth report** | See vocabulary progress over time |
+| **Reading comprehension report** | View reading scores and completion history |
+| **Championship standings** | See personal ranking across all five leaderboards |
+| **Certificates** | Earn and view spelling achievement certificates |
 
 ### Account
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Link a parent** | Enter a parent's email to send a connection request; parent approves and gains monitoring access | `/student/parents` |
-| **User profile** | Update name, avatar, and password | `/profile` |
+| Feature | What the student can do |
+|---------|------------------------|
+| **Link a parent** | Connect a parent to the account so they can monitor progress and receive reports |
 
 ---
 
-## 6. Shared Learning Features
-*Available to all authenticated users — teachers, parents, self-learners, and students. Listed once here to avoid repetition across role sections §2–5.*
+## 5. Shared Learning Features
+*Available to all authenticated users — Teachers, Parents, Self-learners, and Students.*
 
 ---
 
 ### Spelling
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Spelling Test** | Browse spelling content by K–12 grade and topic; see the current grade's best speller and earned cups; launch the spelling quiz from the selected topic | `/spelling-test` |
-| **Spelling Quiz** | Take an interactive word-by-word spelling quiz; hear audio pronunciation; type answers; track score, mastered words, and mistakes in real time; quiz advances automatically; sends report to parent email on exam completion | `/spelling-quiz` |
-| **Spelling Practice hub** | View a visual "practice road" showing milestone progress (words mastered in steps of 10); see current mastered word count; launch the practice quiz | `/spelling-practice` |
-| **Spelling Practice Quiz** | Take a practice quiz in Express mode (fast input) or Step-by-step mode (audio-guided); view results with master / no-master word breakdown after each session | `/spelling-practice-quiz` |
-| **Spelling Training hub** | Browse available training lists (teacher-created or self-created where applicable); see progress on assigned lists; start or continue a list | `/spelling-training` |
-| **Spelling Training Quiz** | Work through a training list word by word with audio; complete the list to mark as done | `/spelling-training-quiz` |
-| **Adaptive Spelling** | Follow a personalized difficulty road that adjusts automatically based on word mastery; visual milestone map shows current level and next targets; auto-advances level when mastery threshold is reached | `/adaptive-spelling` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Spelling Test** | Browse K–12 grades and spelling topics; see the current grade's top speller; launch a spelling quiz on any topic |
+| **Spelling Quiz** | Type answers to words one at a time while listening to audio; track score, mastered words, and mistakes in real time as the quiz progresses |
+| **Spelling Practice** | View a visual "practice road" showing milestone progress in steps of 10 mastered words; see current mastered word count; launch a practice session |
+| **Spelling Practice Quiz** | Take a practice session in Express mode (fast typing) or Step-by-step mode (audio-guided with feedback); see a master / no-master word breakdown after each session |
+| **Spelling Training** | Browse available spelling training lists; see progress on any assigned lists; start or continue a list |
+| **Spelling Training Quiz** | Work through a training word list one word at a time with audio playback; completion marks the list as done |
+| **Adaptive Spelling** | Follow a personalized spelling difficulty road that automatically adjusts based on word mastery; a visual milestone map shows current level and next targets |
 
 ---
 
 ### Spelling Bee Online
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Spelling Bee Online lobby** | View active players (with avatars, countries, and levels); see own SBO level and mastered word count; create or join a game room | `/spelling-bee-online` |
-| **Spelling Bee game** | Compete in a live multiplayer spelling challenge; hear audio of words; type answers in real time against other players; track health/lives; advance through game levels | `/spelling-bee-game` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Spelling Bee lobby** | See active players with their avatars, countries, and levels; view own Spelling Bee level and word count; create or join a game room |
+| **Spelling Bee game** | Compete live against other players; listen to words and type answers in real time; track lives; advance through game levels |
 
 ---
 
 ### Vocabulary
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Vocabulary Test** | Take a vocabulary quiz (requires active subscription for full access); view the best vocabulary leaderboard | `/vocabulary-test` |
-| **Word bank** | Browse K–12 graded spelling and vocabulary word lists; listen to audio pronunciation for each word; switch between Spelling Words and Spelling Bee Words tabs | `/words` |
-| **Spelling Bee word lists** | Browse curated Spelling Bee competition word lists by grade with audio | `/spelling-bee-words` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Vocabulary Test** | Take a vocabulary quiz and see a score; view the platform's best vocabulary performers |
+| **Word bank** | Browse K–12 graded spelling and vocabulary word lists; listen to audio pronunciation for each word; switch between Spelling Words and Spelling Bee Words |
 
 ---
 
-### Reading
+### Reading Comprehension
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Reading comprehension hub** | Select a grade level; browse reading passages available for that grade | `/reading-comprehension` |
-| **Reading passage** | Read a graded passage (text with optional image); timer counts down to set a minimum reading time before questions begin | `/reading-test/[slug]` |
-| **Reading questions** | Answer comprehension questions after reading the passage; questions advance automatically; completion redirects to results | `/reading-test/[slug]` (question mode) |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Reading hub** | Select a grade level and browse available reading passages |
+| **Read a passage** | Read a graded text at their own pace; a timer ensures a minimum reading time before questions begin |
+| **Answer comprehension questions** | Answer multiple-choice questions after reading; questions advance automatically; a results screen appears on completion |
 
 ---
 
 ### Courses and Lessons
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Course catalog** | Browse all published courses with title, thumbnail, and description | `/courses` |
-| **Course overview** | View lessons within a course; see progress through the course | `/lessons/courses/item` |
-| **Lesson player** | Work through a lesson step by step; exercises include audio, image choice, missing word, word ordering, sentence correction, matching, and YouTube tasks; progress is saved after each step | `/lessons/lessons/item` |
-| **Lesson results** | View score, time spent, and exercise outcomes after completing a lesson | `/lessons/lessons/results` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Course catalog** | Browse all published courses with descriptions and previews |
+| **Course overview** | See all lessons in a course and current progress through it |
+| **Lesson player** | Work through a lesson step by step using a variety of exercise types: audio listening, image choice, missing word, word ordering, sentence correction, matching, and YouTube tasks; progress saves automatically after each step |
+| **Lesson results** | See score, time spent, and exercise-by-exercise outcomes after finishing a lesson |
 
 ---
 
 ### Fun Quizzes
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Fun quiz catalog** | Browse gamified quizzes by category; view thumbnails and descriptions | `/quizzes` |
-| **Play a fun quiz** | Answer image-choice or word-choice questions in a game format | `/quizzes/[slug]` |
-| **Fun quiz stats** | View personal performance for a completed fun quiz | `/quizzes/statistic` |
-| **Personal quiz stats** | View overall stats across all fun quizzes | `/quizzes/userstat` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Fun quiz catalog** | Browse gamified quizzes by category |
+| **Play a fun quiz** | Answer image-choice and word-choice questions in a game format |
+| **Fun quiz stats** | View personal performance for each completed quiz |
 
 ---
 
 ### Worksheets
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Worksheet player** | Complete an interactive worksheet; submit answers; view score | `/worksheets/item` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Worksheet player** | Complete an interactive worksheet and view the score on submission |
 
 ---
 
 ### Idioms
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Idiom library** | Browse the full idiom collection | `/idioms` |
-| **Idiom detail** | Read the meaning, origin, and usage examples of a specific idiom | `/idiom/[slug]` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Idiom library** | Browse the full collection of English idioms |
+| **Idiom detail** | Read the meaning, origin, and usage examples of a specific idiom |
 
 ---
 
 ### Championships
 
-| Feature | What the user can do | Route |
-|---------|---------------------|-------|
-| **Spelling leaderboard** | See the top spellers by mastered word count; view own rank | `/championship` |
-| **Vocabulary leaderboard** | See the top vocabulary performers by best quiz score | `/championship` |
-| **Spelling Bee Online leaderboard** | See the top SBO players | `/championship` |
-| **Adaptive leaderboard** | See the top adaptive spelling performers | `/championship` |
-| **Practice leaderboard** | See the top spelling practice performers | `/championship` |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Spelling leaderboard** | See the top spellers by mastered word count and view personal rank |
+| **Vocabulary leaderboard** | See the top vocabulary performers by best quiz score |
+| **Spelling Bee Online leaderboard** | See the top Spelling Bee Online competitors |
+| **Adaptive Spelling leaderboard** | See the top performers in adaptive spelling mode |
+| **Practice leaderboard** | See the top performers in spelling practice mode |
 
 ---
 
-## Feature Access Matrix
+### Certificates
 
-| Feature area | Guest | Student | Self-Learner | Parent | Teacher |
-|-------------|:-----:|:-------:|:------------:|:------:|:-------:|
-| Spelling Test (browser) | — | ✓ | ✓ | ✓ | ✓ |
-| Spelling Quiz (engine) | — | ✓ | ✓ | ✓ | ✓ |
-| Spelling Practice | — | ✓ | ✓ | ✓ | ✓ |
-| Spelling Training (take) | — | ✓ | ✓ | ✓ | ✓ |
-| Spelling Training (create/assign) | — | — | — | ✓ | ✓ |
-| Spelling content creation | — | — | — | — | ✓ |
-| Adaptive Spelling | — | ✓ | ✓ | ✓ | ✓ |
-| Spelling Bee Online (guest) | ✓ (no stats) | ✓ | ✓ | ✓ | ✓ |
-| Vocabulary Test | — | ✓ | ✓ (sub req.) | ✓ | ✓ |
-| Word bank | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Reading (Grade 1 only for guests) | Grade 1 | ✓ | ✓ | ✓ | ✓ |
-| Fun quizzes | Browse only | ✓ | ✓ | ✓ | ✓ |
-| Courses (take) | Browse only | ✓ | ✓ | ✓ | ✓ |
-| Courses (create) | — | — | — | — | ✓ |
-| Worksheets (take) | — | ✓ | — | — | — |
-| Worksheets (create) | — | — | — | — | ✓ |
-| Idioms | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Exam assignment | — | — | — | ✓ | ✓ |
-| Class management | — | — | — | ✓ | ✓ |
-| Student management | — | — | — | ✓ | ✓ |
-| Personal reports | — | ✓ | ✓ | ✓ (own) | ✓ (own) |
-| Student/child reports | — | — | — | ✓ (children) | ✓ (students) |
-| Championships | — | ✓ | ✓ | ✓ | ✓ |
-| Certificates | — | ✓ | ✓ | ✓ | ✓ |
-| Parent linking | — | ✓ | — | — | — |
-| Subscription / billing | — | — | ✓ | ✓ | ✓ |
+| Feature | What the user can do |
+|---------|---------------------|
+| **Earn certificates** | Receive spelling achievement certificates by completing spelling tests at qualifying scores |
+| **View certificates** | Browse all earned certificates in one place |
+
+---
+
+## Feature Access Summary
+
+| Feature | Guest | Student | Self-Learner | Parent | Teacher |
+|---------|:-----:|:-------:|:------------:|:------:|:-------:|
+| **Spelling Test** | — | ✓ | ✓ | ✓ | ✓ |
+| **Spelling Quiz** | — | ✓ | ✓ | ✓ | ✓ |
+| **Spelling Practice** | — | ✓ | ✓ | ✓ | ✓ |
+| **Spelling Training (take)** | — | ✓ | ✓ | ✓ | ✓ |
+| **Spelling Training (create & assign)** | — | — | — | ✓ | ✓ |
+| **Spelling Exam Assignment** | — | — | — | ✓ | ✓ |
+| **Adaptive Spelling** | — | ✓ | ✓ | ✓ | ✓ |
+| **Spelling Bee Online** | Guest (no progress saved) | ✓ | ✓ | ✓ | ✓ |
+| **Vocabulary Test** | — | ✓ | ✓ | ✓ | ✓ |
+| **Word bank** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Reading Comprehension** | Grade 1 only | ✓ | ✓ | ✓ | ✓ |
+| **Fun Quizzes** | Browse only | ✓ | ✓ | ✓ | ✓ |
+| **Courses and Lessons** | Browse only | ✓ | ✓ | ✓ | ✓ |
+| **Course Creation** | — | — | — | — | ✓ |
+| **Worksheets** | — | ✓ | — | — | — |
+| **Worksheet Creation** | — | — | — | — | ✓ |
+| **Idioms** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Championships** | — | ✓ | ✓ | ✓ | ✓ |
+| **Certificates** | — | ✓ | ✓ | ✓ | ✓ |
+| **Personal progress reports** | — | ✓ | ✓ | ✓ | ✓ |
+| **Student / child reports** | — | — | — | ✓ (children) | ✓ (students) |
+| **Link a parent** | — | ✓ | — | — | — |
+| **Free trial on signup** | — | — | ✓ | — | — |
